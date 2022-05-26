@@ -27,11 +27,14 @@ IF(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     "MinSizeRel" "RelWithDebInfo")
 ENDIF()
 
-SET(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -O2 -mfpmath=sse -fPIC")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -O2 -mfpmath=sse -fPIC")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -O2 -mfpmath=sse -fPIC")
 
-#SET(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -O2 -mfpmath=sse -fPIC -Wno-error=reorder -fpermissive -Wno-narrowing")
-#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -mfpmath=sse -fPIC -Wno-error=reorder -fpermissive -Wno-narrowing")
+# SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -fPIC")
+# SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -fPIC")
+
+# SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -mfpmath=sse -fPIC -Wno-error=reorder -fpermissive -Wno-narrowing")
+# SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -mfpmath=sse -fPIC -Wno-error=reorder -fpermissive -Wno-narrowing")
 
 ####
 # find threads
@@ -46,6 +49,7 @@ ENDIF()
 FIND_PACKAGE(CUDA REQUIRED)
 
 IF(CUDA_FOUND)
+  ADD_DEFINITIONS(-DPBA_DLL)
 ELSE()
   ADD_DEFINITIONS(-DPBA_NO_GPU)
 ENDIF()
