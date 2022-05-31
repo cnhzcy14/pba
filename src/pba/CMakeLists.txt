@@ -18,7 +18,7 @@ IF(CUDA_FOUND)
 
   SET_TARGET_PROPERTIES(pba PROPERTIES
                             SOVERSION 1
-                            VERSION 1.0.5)
+                            VERSION 1.0.7)
 ELSE()
 
   SET(SRCS pba.cpp
@@ -29,7 +29,7 @@ ELSE()
 
   SET_TARGET_PROPERTIES(pba PROPERTIES
                             SOVERSION 1
-                            VERSION 1.0.5)
+                            VERSION 1.0.7)
   TARGET_LINK_LIBRARIES(pba ${CMAKE_THREAD_LIBS_INIT})
 
 ENDIF()
