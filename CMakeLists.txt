@@ -9,6 +9,7 @@ IF(COMMAND CMAKE_POLICY)
      CMAKE_POLICY(SET CMP0016 NEW)
 ENDIF(COMMAND CMAKE_POLICY)
 
+set(CMAKE_BUILD_TYPE "Release")
 SET(CMAKE_SKIP_BUILD_RPATH TRUE)
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
@@ -27,14 +28,13 @@ IF(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
     "MinSizeRel" "RelWithDebInfo")
 ENDIF()
 
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Werror -O2 -mfpmath=sse -fPIC")
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -O2 -mfpmath=sse -fPIC")
-
-# SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -fPIC")
-# SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -fPIC")
-
-# SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2 -mfpmath=sse -fPIC -Wno-error=reorder -fpermissive -Wno-narrowing")
-# SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O2 -mfpmath=sse -fPIC -Wno-error=reorder -fpermissive -Wno-narrowing")
+if(MSVC)
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_C_FLAGS_RELEASE_INIT}")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELEASE_INIT}")
+else()
+    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CMAKE_C_FLAGS_RELEASE_INIT} -mfpmath=sse -fPIC -Wno-error=reorder -fpermissive -Wno-narrowing")
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_RELEASE_INIT} -mfpmath=sse -fPIC -Wno-error=reorder -fpermissive -Wno-narrowing")
+endif()
 
 ####
 # find threads
@@ -71,3 +71,13 @@ INSTALL(
   COMPONENT headers
   FILES_MATCHING PATTERN "*.hpp" PATTERN "*.h"
 )
+
+message(STATUS)
+message(STATUS "General configuration for ${PROJECT_NAME}")
+message(STATUS "======================================================================")
+message(STATUS "Platform:")
+message(STATUS "  Arch / OS:            ${CMAKE_HOST_SYSTEM_PROCESSOR} / ${CMAKE_HOST_SYSTEM_NAME} ${CMAKE_HOST_SYSTEM_VERSION}")
+message(STATUS "  C/C++ Compiler:       ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "  Build type:           ${CMAKE_BUILD_TYPE}")
+message(STATUS "======================================================================")
+message(STATUS)
