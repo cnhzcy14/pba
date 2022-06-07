@@ -24,6 +24,7 @@
 #include <iomanip>
 #include <fstream>
 #include <string>
+#include <algorithm>
 using std::cout;
 using std::ofstream;
 using std::string;

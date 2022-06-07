@@ -1704,13 +1704,14 @@ template<int VN, int KH, bool JT> __global__ void jtjd_cam_vec32_kernel(
             }
         }
     }
-    __syncthreads();
+    // __syncthreads();
 
     if(cam >= num) return;
     //save all the results?
     value[index] = sum; 
+    __syncthreads();
     if(threadIdx.x < 16) value[index] += value[index + 16];
-    if(threadIdx.x < 8)  
+    // if(threadIdx.x < 8)  
 
     //write back 
     if(threadIdx.x < 8)    
